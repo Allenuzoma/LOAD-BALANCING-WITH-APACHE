@@ -1,7 +1,7 @@
 # LOAD BALANCING WITH APACHE: Deploying and configuring a load balancer for a three-tier web application.
 
 Setting up load balancing with Apache for a three-tier application improves availability,reliability and scalability.
-As a follow up to the last project where we deployed three webservers for our tooling website solution. 
+As a follow up to the last project where we deployed three webservers for our tooling website solution, this project goes a step further by adding a load balancer to the configuration. 
 
 Horizontal scaling allows to adapt to current load by adding (scale out) or
 removing (scale in) Web servers. Adjustment of number of servers can be
