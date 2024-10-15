@@ -80,4 +80,50 @@ Now copy the code below into the conf file:
 
 
   
-We will replace the http://web1.example.com with the actual public IP address of each webserver.       
+We will replace the http://web1.example.com with the actual public IP address of each webserver as shown below.     
+
+
+![adding web servers](https://github.com/user-attachments/assets/b7004f66-0bba-4beb-bfde-b7b08673d6d0)
+
+
+
+**Step 3. Enable the new configuration and disable the default**
+
+Enable the new configuration and disable the default configuration:
+
+
+          sudo a2ensite webserver-lb.conf
+          sudo a2dissite 000-default.conf
+
+
+
+**Step 4. Test the configuration and restart Apache**  
+
+Check for any syntax error and restart apache using the commands: 
+
+
+          sudo apache2ctl configtest
+          sudo systemctl restart apache2
+
+
+![sudo apache2ctl configtest  syntax check ](https://github.com/user-attachments/assets/14887d97-07f3-4854-9232-d81047a2fc46)
+
+![sudo systemctl reload apache2](https://github.com/user-attachments/assets/c3a40767-b085-4de2-b575-8097d078dfac)
+
+
+**Step 5. Configure Firewall**
+
+To ensure that Apache Load balance instance can communicate with the web servers and users can access the load balancer, the firewall rules should be configured:
+
+          sudo ufw status # check if the firewall is enabled. If disabled, igrore it
+          
+          # if enabled allow Apache
+          sudo ufw allow 'Apache Full'
+
+
+![ufw status](https://github.com/user-attachments/assets/03ce0dd7-97e4-4192-8e19-377975c3bec0)
+
+
+**Step 6. Test the Load balancer**
+
+Access the load balancer's IP address in a web browser: My load balancer public IP is 18.171.158.99
