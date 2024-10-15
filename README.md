@@ -56,6 +56,11 @@ We will create a new configuration file in the sites-available folder named webs
 Now copy the code below into the conf file:
 
 
+
+
+
+
+
   <VirtualHost *:80>
       ServerAdmin webmaster@localhost
       DocumentRoot /var/www/html
@@ -75,6 +80,8 @@ Now copy the code below into the conf file:
       ProxyPass "/" "balancer://mycluster/"
       ProxyPassReverse "/" "balancer://mycluster/"
   </VirtualHost>
+
+
 
   
 We will replace the http://web1.example.com with the actual public IP address of each webserver.       
