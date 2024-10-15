@@ -57,29 +57,25 @@ Now copy the code below into the conf file:
 
 
 
-
-
-
-
-  <VirtualHost *:80>
-      ServerAdmin webmaster@localhost
-      DocumentRoot /var/www/html
-  
-      ErrorLog ${APACHE_LOG_DIR}/error.log
-      CustomLog ${APACHE_LOG_DIR}/access.log combined
-  
-      <Proxy "balancer://mycluster">
-          BalancerMember "http://web1.example.com"
-          BalancerMember "http://web2.example.com"
-          BalancerMember "http://web2.example.com"
-          # You can add more members here
-          ProxySet lbmethod=byrequests
-      </Proxy>
-  
-      ProxyPreserveHost On
-      ProxyPass "/" "balancer://mycluster/"
-      ProxyPassReverse "/" "balancer://mycluster/"
-  </VirtualHost>
+            <VirtualHost *:80>
+                ServerAdmin webmaster@localhost
+                DocumentRoot /var/www/html
+            
+                ErrorLog ${APACHE_LOG_DIR}/error.log
+                CustomLog ${APACHE_LOG_DIR}/access.log combined
+            
+                <Proxy "balancer://mycluster">
+                    BalancerMember "http://web1.example.com"
+                    BalancerMember "http://web2.example.com"
+                    BalancerMember "http://web2.example.com"
+                    # You can add more members here
+                    ProxySet lbmethod=byrequests
+                </Proxy>
+            
+                ProxyPreserveHost On
+                ProxyPass "/" "balancer://mycluster/"
+                ProxyPassReverse "/" "balancer://mycluster/"
+            </VirtualHost>
 
 
 
