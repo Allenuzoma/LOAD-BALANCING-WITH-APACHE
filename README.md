@@ -23,7 +23,8 @@ a single public IP address/name, a Load Balancer can be used. A Load
 Balancer (LB) distributes clients' requests among underlying Web Servers
 and makes sure that the load is distributed in an optimal way.
 
-![project 8 with apache lb](https://github.com/user-attachments/assets/fb92c1cd-9817-4c57-bef5-2e78632b8784)
+               
+   ![project 8 with apache lb](https://github.com/user-attachments/assets/fb92c1cd-9817-4c57-bef5-2e78632b8784)
 
 
 
