@@ -48,7 +48,12 @@ Verify the apache2 is running using the command:
 
 We will create a new configuration file in the sites-available folder named webserver-lb.conf
 
+
+
       sudo nano /etc/apache2/sites-available/webserver-lb.conf
+
+
+Now copy the code below into the conf file:
 
 
   <VirtualHost *:80>
