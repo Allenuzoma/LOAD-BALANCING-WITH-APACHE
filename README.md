@@ -1,7 +1,30 @@
 # LOAD-BALANCING-WITH-APACHE
 
 
-STEP 1: Install Apache:
+![project 8 with apache lb](https://github.com/user-attachments/assets/fb92c1cd-9817-4c57-bef5-2e78632b8784)
+
+
+
+
+**STEP 0: Configure Apache As A Load Balancer**
+
+
+1. Create an Ubuntu Server 20.04 EC2 instance and name it Webserver-lb, so your EC2 list will look like this:
+
+
+
+   ![ec2 server list](https://github.com/user-attachments/assets/c438abf4-8682-4a56-ae5e-4f4594b5bb5d)
+
+
+
+2. Open TCP port 80 on Webserver-lb by creating an Inbound Rule in
+Security Group.
+
+3. Install Apache Load Balancer on Webserver-lb server and
+configure it to point traffic coming to LB to both Web Servers:
+
+
+**STEP 1: Install Apache:**
 
 The apache mod_proxy module is used for load balancing protocols including HTTP and HTTPS. This module is combined with other modules for effective load balancing. Install them with the following commands (comments included for explanation):
 
@@ -44,7 +67,7 @@ Verify the apache2 is running using the command:
         
 ![sudo systemctl statuss apache2](https://github.com/user-attachments/assets/6bb91bbc-16b1-4359-a4a8-080204407a26)
 
-**Step 2. Configure Apache as a Load balancer**
+**Step 2: Configure Apache as a Load balancer**
 
 We will create a new configuration file in the sites-available folder named webserver-lb.conf
 
@@ -86,7 +109,7 @@ We will replace the http://web1.example.com with the actual public IP address of
 
 
 
-Key Elements:
+**Key Elements:**
 Proxy and Load Balancer Setup: You're defining a proxy with balancer://mycluster, distributing traffic among the three backend servers using BalancerMember. You are also using the bytraffic method for load balancing, which distributes traffic based on server load.
 
 ProxyPass and ProxyPassReverse: These directives ensure that incoming requests are passed to the load balancer and responses are routed back correctly to the client.
@@ -104,7 +127,7 @@ ProxyPreserveHost: Keeping ProxyPreserveHost On is generally a good idea if you 
 
 ![adding web servers with increased timeout](https://github.com/user-attachments/assets/8f8a5ac6-dad9-4a3e-a4a0-09aa83f6c3c1)
 
-**Step 3. Enable the new configuration and disable the default**
+**Step 3: Enable the new configuration and disable the default**
 
 Enable the new configuration and disable the default configuration:
 
@@ -116,7 +139,7 @@ Enable the new configuration and disable the default configuration:
 
 **Step 4. Test the configuration and restart Apache**  
 
-Check for any syntax error and restart apache using the commands: 
+1. Check for any syntax error and restart apache using the commands: 
 
 
           sudo apache2ctl configtest
