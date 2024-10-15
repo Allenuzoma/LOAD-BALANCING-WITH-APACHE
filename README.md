@@ -78,7 +78,7 @@ The apache mod_proxy module is used for load balancing protocols including HTTP 
 
 
 
-We can see the history of the codes we entered in the terminal dor reference
+We can see the history of the codes we entered in the terminal for reference
 
 
    ![history of codes](https://github.com/user-attachments/assets/b4d3cf56-02b2-460c-87d3-f9eae0636ad3)
