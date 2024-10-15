@@ -58,14 +58,14 @@ The apache mod_proxy module is used for load balancing protocols including HTTP 
 We can see the history of the codes we entered in the terminal dor reference
 
 
-![history of codes](https://github.com/user-attachments/assets/b4d3cf56-02b2-460c-87d3-f9eae0636ad3)
+   ![history of codes](https://github.com/user-attachments/assets/b4d3cf56-02b2-460c-87d3-f9eae0636ad3)
 
 
 Verify the apache2 is running using the command:
 
         sudo systemctl status apache2
         
-![sudo systemctl statuss apache2](https://github.com/user-attachments/assets/6bb91bbc-16b1-4359-a4a8-080204407a26)
+   ![sudo systemctl statuss apache2](https://github.com/user-attachments/assets/6bb91bbc-16b1-4359-a4a8-080204407a26)
 
 **Step 2: Configure Apache as a Load balancer**
 
@@ -125,7 +125,7 @@ Additional Security: If the balancer is accessible publicly, you might want to a
 
 ProxyPreserveHost: Keeping ProxyPreserveHost On is generally a good idea if you want the backend servers to receive the original Host header. This is useful for applications that rely on the Host header for routing, logging, or other purposes.
 
-![adding web servers with increased timeout](https://github.com/user-attachments/assets/8f8a5ac6-dad9-4a3e-a4a0-09aa83f6c3c1)
+   ![adding web servers with increased timeout](https://github.com/user-attachments/assets/8f8a5ac6-dad9-4a3e-a4a0-09aa83f6c3c1)
 
 **Step 3: Enable the new configuration and disable the default**
 
@@ -147,9 +147,9 @@ Enable the new configuration and disable the default configuration:
           sudo systemctl daemon-reload
 
 
-![sudo apache2ctl configtest  syntax check ](https://github.com/user-attachments/assets/14887d97-07f3-4854-9232-d81047a2fc46)
+   ![sudo apache2ctl configtest  syntax check ](https://github.com/user-attachments/assets/14887d97-07f3-4854-9232-d81047a2fc46)
 
-![sudo systemctl reload apache2](https://github.com/user-attachments/assets/c3a40767-b085-4de2-b575-8097d078dfac)
+   ![sudo systemctl reload apache2](https://github.com/user-attachments/assets/c3a40767-b085-4de2-b575-8097d078dfac)
 
 
 **Step 5. Configure Firewall**
@@ -162,14 +162,14 @@ To ensure that Apache Load balance instance can communicate with the web servers
           sudo ufw allow 'Apache Full'
 
 
-![ufw status](https://github.com/user-attachments/assets/03ce0dd7-97e4-4192-8e19-377975c3bec0)
+   ![ufw status](https://github.com/user-attachments/assets/03ce0dd7-97e4-4192-8e19-377975c3bec0)
 
 
 **Step 6. Test the Load balancer**
 
 Access the load balancer's IP address in a web browser: My load balancer public IP is 18.171.158.99
 
-![tooling login site using the webserver pub ip](https://github.com/user-attachments/assets/978606cf-b245-452f-aafe-7ebe1e46a421)
+   ![tooling login site using the webserver pub ip](https://github.com/user-attachments/assets/978606cf-b245-452f-aafe-7ebe1e46a421)
 
 
 From the above, we can see we are able to access the website with the webserver IP address.
@@ -179,13 +179,13 @@ We can now access the webservers using **sudo df -h** to see the mount points an
 
 For Webserver 1
 
-![df -h webs 1](https://github.com/user-attachments/assets/33d184b3-08cd-4c1c-bc92-f2781f6dada3)
+   ![df -h webs 1](https://github.com/user-attachments/assets/33d184b3-08cd-4c1c-bc92-f2781f6dada3)
 
 For Webserver 2
-![df -h web 2](https://github.com/user-attachments/assets/9e0f99c9-bd30-4f30-9c48-3373787a4f13)
+   ![df -h web 2](https://github.com/user-attachments/assets/9e0f99c9-bd30-4f30-9c48-3373787a4f13)
 
 For Webserver 3
-![df -h web3](https://github.com/user-attachments/assets/455d1b14-651c-4b28-9974-8549814e82c1)
+   ![df -h web3](https://github.com/user-attachments/assets/455d1b14-651c-4b28-9974-8549814e82c1)
 
 
 Note: In the previous project, we mounted /var/log/httpd/ from our Web Servers to the NFS server - we will have to unmount them and make sure that each Web Server has its own log directory.
@@ -224,13 +224,13 @@ By refreshing our browser (load balancer IP) multiple times, we get the followin
 
 Web Server 2
 
-![web 2 http get request from LB](https://github.com/user-attachments/assets/1afb668f-04da-4cd3-ae80-69e6f331aa30)
+   ![web 2 http get request from LB](https://github.com/user-attachments/assets/1afb668f-04da-4cd3-ae80-69e6f331aa30)
 
 
 
 Web Server 3
 
-![web 3 http get request from LB](https://github.com/user-attachments/assets/dae2fee0-2bfd-4924-bbfe-fa7002940e05)
+   ![web 3 http get request from LB](https://github.com/user-attachments/assets/dae2fee0-2bfd-4924-bbfe-fa7002940e05)
 
 
 
@@ -262,7 +262,7 @@ The load balancer config files can be updated with the new names instead of IP a
 
 When we curl the addresses locally from the load balancer server, they are accessible as shown in the images:
 
-![curl web1 from lb](https://github.com/user-attachments/assets/f9f81f44-dd16-4f95-8153-246a4d8220f5)
+   ![curl web1 from lb](https://github.com/user-attachments/assets/f9f81f44-dd16-4f95-8153-246a4d8220f5)
 
 
 
