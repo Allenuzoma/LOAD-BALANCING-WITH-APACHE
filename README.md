@@ -83,9 +83,26 @@ Now copy the code below into the conf file:
 We will replace the http://web1.example.com with the actual public IP address of each webserver as shown below.     
 
 
-![adding web servers](https://github.com/user-attachments/assets/b7004f66-0bba-4beb-bfde-b7b08673d6d0)
 
 
+
+Key Elements:
+Proxy and Load Balancer Setup: You're defining a proxy with balancer://mycluster, distributing traffic among the three backend servers using BalancerMember. You are also using the bytraffic method for load balancing, which distributes traffic based on server load.
+
+ProxyPass and ProxyPassReverse: These directives ensure that incoming requests are passed to the load balancer and responses are routed back correctly to the client.
+
+Logs: You're setting up error and access logs with ${APACHE_LOG_DIR}, which is a good practice for tracking errors and request logs.
+
+Suggestions:
+Timeout Values: You’ve set a timeout=1 for each BalancerMember. Depending on your network and server response times, this might be a bit low. You may want to increase it if you face timeouts or request failures.
+
+Balancer Load Factor: All servers have the same loadfactor=5, which means they will receive an equal share of traffic. If any of the servers have different performance capacities, you might adjust the load factor accordingly.
+
+Additional Security: If the balancer is accessible publicly, you might want to add security settings, such as restricting access by IP, or adding SSL if this is for production.
+
+ProxyPreserveHost: Keeping ProxyPreserveHost On is generally a good idea if you want the backend servers to receive the original Host header. This is useful for applications that rely on the Host header for routing, logging, or other purposes.
+
+![adding web servers with increased timeout](https://github.com/user-attachments/assets/8f8a5ac6-dad9-4a3e-a4a0-09aa83f6c3c1)
 
 **Step 3. Enable the new configuration and disable the default**
 
@@ -127,3 +144,78 @@ To ensure that Apache Load balance instance can communicate with the web servers
 **Step 6. Test the Load balancer**
 
 Access the load balancer's IP address in a web browser: My load balancer public IP is 18.171.158.99
+
+![tooling login site using the webserver pub ip](https://github.com/user-attachments/assets/978606cf-b245-452f-aafe-7ebe1e46a421)
+
+
+We can now access the webservers using **sudo df -h** to see the mount points and confirm the presence of the directory **var/log/httpd** mount point.
+
+For Webserver 1
+
+![df -h webs 1](https://github.com/user-attachments/assets/33d184b3-08cd-4c1c-bc92-f2781f6dada3)
+
+For Webserver 2
+![df -h web 2](https://github.com/user-attachments/assets/9e0f99c9-bd30-4f30-9c48-3373787a4f13)
+
+For Webserver 3
+![df -h web3](https://github.com/user-attachments/assets/455d1b14-651c-4b28-9974-8549814e82c1)
+
+
+We would unmount the directory in each webserver:
+
+          # unmount
+          sudo umount /var/log/httpd
+          
+          # Optionally check the processes using the file with the lsof command
+          sudo lsof +D /var/log/httpd
+          
+          # stop the services using the directory if it is busy
+          sudo systemctl stop httpd
+          
+          # verify id /var/log/httpd is unmounted from nfs server
+          df -h
+
+          
+Notice that the directory has been unmounted.
+
+
+Run the following command on each terminal of the webservers:
+
+          sudo tail -f /var/log/httpd/access_log
+          
+By refreshing our browser (load balancer IP) multiple times, we get the following results on each server: (Notice the access is from the load balancer IP- 204.236.248.3)
+
+
+Step 7. [Optional] Configure Local DNS names resolution
+The local DNS name of our webservers can be configured in the /etc/hosts file of the loadbalancer server. This is an internal configuration that is local to our load balancer server and is used for testing purposes.
+
+Open the file as follows:
+
+sudo vi /etc/hosts
+
+
+Add the following lines to resolve the IP address of our webserver1, webserver2 and webserver3 into web01, web02 and web03 respectively. 184.72.181.7, 3.81.71.198 and 18.209.111.102
+
+
+          [Web1 Public IP] web01
+          [Web2 Public IP] web02
+          [Web1 Public IP] web03
+
+
+          
+          184.72.181.7 web01
+          3.81.71.198 web02
+          18.209.111.102 web03
+
+
+          
+The load balancer config files can be updated with the new names instead of IP addresses as shown:
+
+
+When we curl the addresses locally from the load balancer server, they are accessible as shown in the images:
+
+
+
+
+Conclusion
+We have successfuly configured an Apache loadbalancer to manage web traffic to our webservers. This setup enhances performance, reliability, and scalability in the three-tier architecture.
