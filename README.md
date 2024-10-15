@@ -121,6 +121,7 @@ Check for any syntax error and restart apache using the commands:
 
           sudo apache2ctl configtest
           sudo systemctl restart apache2
+          sudo systemctl daemon-reload
 
 
 ![sudo apache2ctl configtest  syntax check ](https://github.com/user-attachments/assets/14887d97-07f3-4854-9232-d81047a2fc46)
@@ -148,7 +149,10 @@ Access the load balancer's IP address in a web browser: My load balancer public 
 ![tooling login site using the webserver pub ip](https://github.com/user-attachments/assets/978606cf-b245-452f-aafe-7ebe1e46a421)
 
 
+From the above, we can see we are able to access the website with the webserver IP address.
+
 We can now access the webservers using **sudo df -h** to see the mount points and confirm the presence of the directory **var/log/httpd** mount point.
+
 
 For Webserver 1
 
@@ -159,6 +163,15 @@ For Webserver 2
 
 For Webserver 3
 ![df -h web3](https://github.com/user-attachments/assets/455d1b14-651c-4b28-9974-8549814e82c1)
+
+
+Note: In the previous project, we mounted /var/log/httpd/ from our Web Servers to the NFS server - we will have to unmount them and make sure that each Web Server has its own log directory.
+Open two ssh/Putty consoles for both Web Servers and run following command:
+
+
+          sudo tail -f /var/log/httpd/access_log
+
+
 
 
 We would unmount the directory in each webserver:
@@ -183,7 +196,19 @@ Run the following command on each terminal of the webservers:
 
           sudo tail -f /var/log/httpd/access_log
           
-By refreshing our browser (load balancer IP) multiple times, we get the following results on each server: (Notice the access is from the load balancer IP- 204.236.248.3)
+By refreshing our browser (load balancer IP) multiple times, we get the following results on each server: (Notice the access is from the load balancer IP- 35.178.187.79)
+
+
+Web Server 2
+
+![web 2 http get request from LB](https://github.com/user-attachments/assets/1afb668f-04da-4cd3-ae80-69e6f331aa30)
+
+
+
+Web Server 3
+
+![web 3 http get request from LB](https://github.com/user-attachments/assets/dae2fee0-2bfd-4924-bbfe-fa7002940e05)
+
 
 
 Step 7. [Optional] Configure Local DNS names resolution
@@ -191,21 +216,21 @@ The local DNS name of our webservers can be configured in the /etc/hosts file of
 
 Open the file as follows:
 
-sudo vi /etc/hosts
+sudo nano /etc/hosts
 
 
-Add the following lines to resolve the IP address of our webserver1, webserver2 and webserver3 into web01, web02 and web03 respectively. 184.72.181.7, 3.81.71.198 and 18.209.111.102
+Add the following lines to resolve the IP address of our webserver1, webserver2 and webserver3 into web1, web2 and web3 respectively. 18.130.96.12, 18.171.59 and 13.40.57.37
 
 
-          [Web1 Public IP] web01
-          [Web2 Public IP] web02
-          [Web1 Public IP] web03
+          [Web1 Public IP] web1
+          [Web2 Public IP] web2
+          [Web1 Public IP] web3
 
 
           
-          184.72.181.7 web01
-          3.81.71.198 web02
-          18.209.111.102 web03
+          18.130.96.122 web1
+          18.171.59 web2
+          13.40.57.37 web3
 
 
           
@@ -214,6 +239,7 @@ The load balancer config files can be updated with the new names instead of IP a
 
 When we curl the addresses locally from the load balancer server, they are accessible as shown in the images:
 
+![curl web1 from lb](https://github.com/user-attachments/assets/f9f81f44-dd16-4f95-8153-246a4d8220f5)
 
 
 
