@@ -284,6 +284,11 @@ Add the following lines to resolve the IP address of our webserver1, webserver2 
 The load balancer config files can be updated with the new names instead of IP addresses as shown:
 
 
+
+![image](https://github.com/user-attachments/assets/16de0f03-5c1e-446c-8584-3909ffb1b50c)
+
+
+
 When we curl the addresses locally from the load balancer server, they are accessible as shown in the images:
 
    ![curl web1 from lb](https://github.com/user-attachments/assets/f9f81f44-dd16-4f95-8153-246a4d8220f5)
