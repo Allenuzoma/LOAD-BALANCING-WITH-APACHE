@@ -224,12 +224,13 @@ We would unmount the directory in each webserver:
 
           # unmount
           sudo umount /var/log/httpd
-          
-          # Optionally check the processes using the file with the lsof command
-          sudo lsof +D /var/log/httpd
-          
+
           # stop the services using the directory if it is busy
           sudo systemctl stop httpd
+          
+          # Optionally check the processes using the file with the lsof command, 
+          sudo yum install -y lsof
+          sudo lsof +D /var/log/httpd
           
           # verify id /var/log/httpd is unmounted from nfs server
           df -h
@@ -268,9 +269,9 @@ sudo nano /etc/hosts
 Add the following lines to resolve the IP address of our webserver1, webserver2 and webserver3 into web1, web2 and web3 respectively. 18.130.96.12, 18.171.59 and 13.40.57.37
 
 
-          [Web1 Public IP] web1
-          [Web2 Public IP] web2
-          [Web1 Public IP] web3
+          #[Web1 Public IP] web1
+          #[Web2 Public IP] web2
+          #[Web3 Public IP] web3
 
 
           
