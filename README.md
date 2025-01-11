@@ -263,7 +263,7 @@ The local DNS name of our webservers can be configured in the /etc/hosts file of
 
 Open the file as follows:
 
-sudo nano /etc/hosts
+      sudo nano /etc/hosts
 
 
 Add the following lines to resolve the IP address of our webserver1, webserver2 and webserver3 into web1, web2 and web3 respectively. 18.130.96.12, 18.171.59 and 13.40.57.37
